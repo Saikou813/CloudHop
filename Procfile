@@ -1,0 +1,1 @@
+web: gunicorn cloudhop_project.wsgi
