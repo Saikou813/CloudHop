@@ -2,14 +2,26 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+# This is the "Model" part of the MVC (Model-View-Controller) pattern.
+class Airport(models.Model):
+    code = models.CharField(max_length=3, unique=True) # e.g., LHR, JFK
+    name = models.CharField(max_length=100)           # e.g., Heathrow
+    city = models.CharField(max_length=100)           # e.g., London
+
+    def __str__(self):
+        return f"{self.city} ({self.code})"
+    
+# This is the "Flight" model, which represents a flight in our system.       
 class Flight(models.Model):
     flight_number = models.CharField(max_length=10, unique=True)
-    destination = models.CharField(max_length=100)
+    # These link to the Airport model above
+    origin = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name="departures")
+    destination = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name="arrivals")
     departure_time = models.DateTimeField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return f"{self.flight_number} to {self.destination}"
+        return f"{self.flight_number}: {self.origin} to {self.destination}"
 
 class Booking(models.Model):
     # This links the booking to a specific User and Flight

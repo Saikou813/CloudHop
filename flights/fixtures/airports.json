@@ -1,0 +1,12 @@
+[
+  {
+    "model": "flights.airport",
+    "pk": 1,
+    "fields": { "code": "LHR", "name": "Heathrow", "city": "London" }
+  },
+  {
+    "model": "flights.airport",
+    "pk": 2,
+    "fields": { "code": "JFK", "name": "John F. Kennedy", "city": "New York" }
+  }
+]
