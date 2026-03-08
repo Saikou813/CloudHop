@@ -17,7 +17,7 @@
         {% if user.is_authenticated %}
         <!-- Shows the current user -->
         <span class="nav-link text-white me-2">Hi, {{ user.username }}!</span>
-        <a class="nav-item nav-link text-white" href="#">My Bookings</a>
+        <a class="nav-item nav-link text-white" href="{% url 'my_bookings' %}">My Bookings</a>
 
         <!-- Secure Logout Form (Required by Allauth) -->
         <form method="post" action="{% url 'account_logout' %}" class="d-inline">
