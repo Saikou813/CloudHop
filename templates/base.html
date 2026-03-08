@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,20 +11,26 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="{% url 'home' %}">☁️ CloudHop</a>
-            <div class="navbar-nav ms-auto">
-                {% if user.is_authenticated %}
-                    <span class="nav-link text-white">Hi, {{ user.username }}!</span>
-                    <a class="nav-item nav-link" href="#">My Bookings</a>
-                {% else %}
-                    <a class="nav-item nav-link" href="#">Login</a>
-                {% endif %}
-            </div>
-        </div>
-    </nav>
+    <div class="navbar-nav ms-auto">
+        {% if user.is_authenticated %}
+        <!-- Shows the current user -->
+        <span class="nav-link text-white me-2">Hi, {{ user.username }}!</span>
+        <a class="nav-item nav-link text-white" href="#">My Bookings</a>
+
+        <!-- Secure Logout Form (Required by Allauth) -->
+        <form method="post" action="{% url 'account_logout' %}" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-link nav-link text-white border-0 py-0"
+                style="display:inline; vertical-align:baseline;">Logout</button>
+        </form>
+        {% else %}
+        <!-- Shows for guest users -->
+        <a class="nav-item nav-link text-white" href="{% url 'account_login' %}">Login</a>
+        <a class="nav-item nav-link text-white" href="{% url 'account_signup' %}">Register</a>
+        {% endif %}
+    </div>
 
     <main class="container my-5">
         {% block content %}
@@ -37,4 +44,5 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net"></script>
 </body>
+
 </html>
