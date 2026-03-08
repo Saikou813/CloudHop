@@ -32,6 +32,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost','cloud-hop-5647c9f84dbd.herokuapp.com']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.herokuapp.com',
+    'https://*.codeanyapp.com',
+    'https://*.gitpod.io',
+    'http://127.0.0.1',
+    'http://localhost',
+]
+
 
 # Application definition
 
