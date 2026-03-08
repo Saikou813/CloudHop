@@ -32,3 +32,10 @@ def book_flight(request, flight_id):
         form = BookingForm()
     
     return render(request, 'book_flight.html', {'form': form, 'flight': flight})
+
+# This handles the "Read" part of the Custom Model
+@login_required(login_url='/accounts/login/')
+def booking_list(request):
+# This filters bookings so users only see THEIR own flights
+    bookings = Booking.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'my_bookings.html', {'bookings': bookings}) 
