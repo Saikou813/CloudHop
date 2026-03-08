@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.contrib import messages
 from .models import Flight, Booking
 from .forms import BookingForm
+from django.contrib.auth.decorators import login_required
 
 # This handles the list of flights on the homepage
 class FlightList(generic.ListView):
@@ -11,6 +13,7 @@ class FlightList(generic.ListView):
     context_object_name = 'flights'
 
 # This handles the "Create" part of the Custom Model
+@login_required(login_url='/accounts/login/')
 def book_flight(request, flight_id):
     flight = get_object_or_404(Flight, id=flight_id)
     
