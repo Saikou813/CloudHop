@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <h2 class="fw-bold text-primary mb-4">My Bookings ✈️</h2>
+        
+        {% if bookings %}
+            <div class="table-responsive shadow-sm rounded border">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Flight</th>
+                            <th>Passenger Name</th>
+                            <th>Seat Preference</th>
+                            <th>Booked On</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                        <tr>
+                            <td class="fw-bold text-primary">{{ booking.flight.flight_number }} to {{ booking.flight.destination }}</td>
+                            <td>{{ booking.passenger_name }}</td>
+                            <td><span class="badge bg-info text-dark">{{ booking.seat_preference }}</span></td>
+                            <td class="text-muted small">{{ booking.created_at|date:"M d, Y" }}</td>
+                            <td>
+                                <!-- Placeholder for Delete/Edit (LO2.2) -->
+                                <button class="btn btn-sm btn-outline-danger">Cancel</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="text-center py-5 border rounded bg-light shadow-sm">
+                <h4 class="text-muted">You haven't booked any flights yet.</h4>
+                <a href="{% url 'home' %}" class="btn btn-primary mt-3">Browse Flights</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
