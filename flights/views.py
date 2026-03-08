@@ -38,4 +38,17 @@ def book_flight(request, flight_id):
 def booking_list(request):
 # This filters bookings so users only see THEIR own flights
     bookings = Booking.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'my_bookings.html', {'bookings': bookings}) 
+    return render(request, 'my_bookings.html', {'bookings': bookings})
+
+@login_required(login_url='/accounts/login/')
+def cancel_booking(request, booking_id):
+    # This ensures only the owner can cancel their own booking
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+    
+    if request.method == 'POST':
+        booking.delete()
+        messages.success(request, 'Booking successfully cancelled.')
+        return redirect('my_bookings')
+    
+    # create this template in the next step!
+    return render(request, 'cancel_confirm.html', {'booking': booking})
