@@ -17,7 +17,7 @@
                 <p class="card-text">Flight: {{ flight.flight_number }}</p>
                 <p class="text-muted small">Departs: {{ flight.departure_time|date:"M d, Y H:i" }}</p>
                 <h4 class="fw-bold">${{ flight.price }}</h4>
-                <a href="#" class="btn btn-outline-primary w-100 mt-3">Book Now</a>
+                <a href="{% url 'book_flight' flight.id %}" class="btn btn-outline-primary w-100 mt-3">Book Now</a>
             </div>
         </div>
     </div>
