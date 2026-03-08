@@ -40,6 +40,7 @@ def booking_list(request):
     bookings = Booking.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'my_bookings.html', {'bookings': bookings})
 
+#cancel booking view, only allows users to cancel their own bookings
 @login_required(login_url='/accounts/login/')
 def cancel_booking(request, booking_id):
     # This ensures only the owner can cancel their own booking
@@ -52,3 +53,22 @@ def cancel_booking(request, booking_id):
     
     # create this template in the next step!
     return render(request, 'cancel_confirm.html', {'booking': booking})
+
+#
+@login_required(login_url='/accounts/login/')
+def edit_booking(request, booking_id):
+    # Security: Ensure only the owner can edit
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+    
+    if request.method == 'POST':
+        # 'instance=booking' tells Django to UPDATE the existing record
+        form = BookingForm(request.POST, instance=booking)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Booking for {booking.flight.destination} updated!')
+            return redirect('my_bookings')
+    else:
+        # Load the form with the current data
+        form = BookingForm(instance=booking)
+    
+    return render(request, 'edit_booking.html', {'form': form, 'booking': booking})

@@ -28,8 +28,10 @@
                             <td><span class="badge bg-info text-dark">{{ booking.seat_preference }}</span></td>
                             <td class="text-muted small">{{ booking.created_at|date:"M d, Y" }}</td>
                             <td class="text-end">
-                                <!-- Real Cancel Link (LO2.2 Delete) -->
-                                <a href="{% url 'cancel_booking' booking.id %}" class="btn btn-sm btn-outline-danger px-3">Cancel</a>
+                                <!-- Edit Link -->
+                                <a href="{% url 'edit_booking' booking.id %}" class="btn btn-sm btn-warning">Edit</a>
+                                <!-- Cancel Link -->
+                                <a href="{% url 'cancel_booking' booking.id %}" class="btn btn-sm btn-danger">Cancel</a>
                             </td>
                         </tr>
                         {% endfor %}
