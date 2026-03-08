@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12 text-center mb-5">
+        <h1 class="display-4 fw-bold">Where to next?</h1>
+        <p class="lead">Explore destinations with CloudHop's premium fleet.</p>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for flight in flights %}
+    <div class="col">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title fw-bold text-primary">{{ flight.destination }}</h5>
+                <p class="card-text">Flight: {{ flight.flight_number }}</p>
+                <p class="text-muted small">Departs: {{ flight.departure_time|date:"M d, Y H:i" }}</p>
+                <h4 class="fw-bold">${{ flight.price }}</h4>
+                <a href="#" class="btn btn-outline-primary w-100 mt-3">Book Now</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center">
+        <p>No flights available right now. Check back soon!</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
