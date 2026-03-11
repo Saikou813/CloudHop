@@ -19,9 +19,9 @@ class FlightList(generic.ListView):
             # This searches the Flight's Origin and Destination airports for the code or city
             return Flight.objects.filter(
                 Q(origin__code__icontains=query) | 
-                Q(origin__city__icontains=query) |
+                Q(origin__name__icontains=query) |
                 Q(destination__code__icontains=query) |
-                Q(destination__city__icontains=query)
+                Q(destination__name__icontains=query)
             )
         return Flight.objects.all()
 
