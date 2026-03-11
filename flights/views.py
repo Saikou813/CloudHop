@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 # This handles the list of flights on the homepage
 class FlightList(generic.ListView):
     model = Flight
-    template_name = 'index.html'
+    template_name = 'flights/index.html'
     context_object_name = 'flights'
 
 # This handles the "Create" part of the Custom Model
@@ -31,14 +31,14 @@ def book_flight(request, flight_id):
     else:
         form = BookingForm()
     
-    return render(request, 'book_flight.html', {'form': form, 'flight': flight})
+    return render(request, 'flights/book_flight.html', {'form': form, 'flight': flight})
 
 # This handles the "Read" part of the Custom Model
 @login_required(login_url='/accounts/login/')
 def booking_list(request):
 # This filters bookings so users only see THEIR own flights
     bookings = Booking.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'my_bookings.html', {'bookings': bookings})
+    return render(request, 'flights/my_bookings.html', {'bookings': bookings})
 
 #cancel booking view, only allows users to cancel their own bookings
 @login_required(login_url='/accounts/login/')
@@ -52,7 +52,7 @@ def cancel_booking(request, booking_id):
         return redirect('my_bookings')
     
     # create this template in the next step!
-    return render(request, 'cancel_confirm.html', {'booking': booking})
+    return render(request, 'flights/cancel_confirm.html', {'booking': booking})
 
 #
 @login_required(login_url='/accounts/login/')
@@ -71,4 +71,4 @@ def edit_booking(request, booking_id):
         # Load the form with the current data
         form = BookingForm(instance=booking)
     
-    return render(request, 'edit_booking.html', {'form': form, 'booking': booking})
+    return render(request, 'flights/edit_booking.html', {'form': form, 'booking': booking})
