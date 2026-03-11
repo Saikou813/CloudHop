@@ -20,8 +20,10 @@ class FlightList(generic.ListView):
             return Flight.objects.filter(
                 Q(origin__code__icontains=query) | 
                 Q(origin__name__icontains=query) |
+                Q(origin__city__icontains=query) |
                 Q(destination__code__icontains=query) |
-                Q(destination__name__icontains=query)
+                Q(destination__name__icontains=query) |
+                Q(destination__city__icontains=query)
             )
         return Flight.objects.all()
 
