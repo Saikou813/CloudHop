@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.views import generic
@@ -11,6 +12,18 @@ class FlightList(generic.ListView):
     model = Flight
     template_name = 'flights/index.html'
     context_object_name = 'flights'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            # This searches the Flight's Origin and Destination airports for the code or city
+            return Flight.objects.filter(
+                Q(origin__code__icontains=query) | 
+                Q(origin__city__icontains=query) |
+                Q(destination__code__icontains=query) |
+                Q(destination__city__icontains=query)
+            )
+        return Flight.objects.all()
 
 # This handles the "Create" part of the Custom Model
 @login_required(login_url='/accounts/login/')
