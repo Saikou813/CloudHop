@@ -10,6 +10,18 @@
     </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
+        <!-- Search Form -->
+        <form action="{% url 'index' %}" method="get" class="mb-4 mt-4">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control"
+                    placeholder="Search by City or Airport Code (e.g. LHR)..." value="{{ request.GET.q }}">
+                <button class="btn btn-primary" type="submit">Search Flights</button>
+                {% if request.GET.q %}
+                <a href="{% url 'index' %}" class="btn btn-secondary">Clear</a>
+                {% endif %}
+            </div>
+        </form>
+
         {% for flight in flights %}
         <div class="col">
             <div class="card h-100 shadow border-0 rounded-4">
@@ -21,7 +33,8 @@
                         <strong>{{ flight.departure_time|date:"M d, Y H:i" }}</strong>
                     </div>
                     <h2 class="fw-bold text-primary mb-4">${{ flight.price }}</h2>
-                    <a href="{% url 'book_flight' flight.id %}" class="btn btn-primary btn-lg w-100 rounded-pill">Book Now</a>
+                    <a href="{% url 'book_flight' flight.id %}" class="btn btn-primary btn-lg w-100 rounded-pill">Book
+                        Now</a>
                 </div>
             </div>
         </div>
