@@ -40,7 +40,6 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost',
 ]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -171,3 +170,10 @@ CLOUDINARY_STORAGE = {
     'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL'),
     'STATICFILES_MANIFEST_STORAGE': 'django.contrib.staticfiles.storage.StaticFilesStorage',
 }
+
+# Account Setup for Allauth
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
