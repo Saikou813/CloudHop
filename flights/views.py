@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.views import generic
 from django.contrib import messages
 from .models import Flight, Booking
-from .forms import BookingForm
+from .forms import BookingForm, ProfileForm  # Added ProfileForm here
 
 class FlightList(generic.ListView):
     model = Flight
@@ -83,3 +83,20 @@ def edit_booking(request, booking_id):
         form = BookingForm(instance=booking)
     
     return render(request, 'flights/edit_booking.html', {'form': form, 'booking': booking})
+
+# NEW: Profile view added at the bottom
+@login_required(login_url='/accounts/login/')
+def profile_view(request):
+    # This retrieves the profile created by your signal
+    profile = request.user.profile 
+    
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your travel profile has been updated!')
+            return redirect('profile')
+    else:
+        form = ProfileForm(instance=profile)
+        
+    return render(request, 'flights/profile.html', {'form': form})
