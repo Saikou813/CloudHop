@@ -62,7 +62,8 @@ def cancel_booking(request, booking_id):
     booking = get_object_or_404(Booking, id=booking_id, user=request.user)
     
     if request.method == 'POST':
-        booking.delete()
+        booking.status = 'Cancelled'
+        booking.save()
         messages.success(request, 'Booking successfully cancelled.')
         return redirect('my_bookings')
     
