@@ -4,47 +4,61 @@
 <div class="row justify-content-center">
     <div class="col-md-10">
         <h2 class="fw-bold text-primary mb-4">My Bookings ✈️</h2>
-        
+
         {% if bookings %}
-            <div class="table-responsive shadow-sm rounded border bg-white">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-primary text-white">
-                        <tr>
-                            <th>Flight Details</th>
-                            <th>Passenger Name</th>
-                            <th>Seat</th>
-                            <th>Booked On</th>
-                            <th class="text-end">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for booking in bookings %}
-                        <tr>
-                            <td>
-                                <div class="fw-bold text-primary">{{ booking.flight.destination }}</div>
-                                <div class="small text-muted">{{ booking.flight.flight_number }}</div>
-                            </td>
-                            <td>{{ booking.passenger_name }}</td>
-                            <td><span class="badge bg-info text-dark">{{ booking.seat_preference }}</span></td>
-                            <td class="text-muted small">{{ booking.created_at|date:"M d, Y" }}</td>
-                            <td class="text-end">
-                                <!-- Edit Link -->
-                                <a href="{% url 'edit_booking' booking.id %}" class="btn btn-sm btn-warning">Edit</a>
-                                <!-- Cancel Link -->
-                                <a href="{% url 'cancel_booking' booking.id %}" class="btn btn-sm btn-danger">Cancel</a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+        <div class="table-responsive shadow-sm rounded border bg-white">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-primary text-white">
+                    <tr>
+                        <th>Flight Details</th>
+                        <th>Status</th>
+                        <th>Passenger Name</th>
+                        <th>Seat</th>
+                        <th>Booked On</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>
+                            <div class="fw-bold text-primary">{{ booking.flight.destination }}</div>
+                            <div class="small text-muted">{{ booking.flight.flight_number }}</div>
+                        </td>
+                        <td>
+                            {% if booking.status == 'Confirmed' %}
+                            <span class="badge bg-success">Confirmed</span>
+                            {% else %}
+                            <span class="badge bg-secondary">Cancelled</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ booking.passenger_name }}</td>
+                        <td><span class="badge bg-info text-dark">{{ booking.seat_preference }}</span></td>
+                        <td class="text-muted small">{{ booking.created_at|date:"M d, Y" }}</td>
+
+                        <td class="text-end">
+                            {% if booking.status == 'Confirmed' %}
+                            <!-- These only show if the booking is Confirmed -->
+                            <a href="{% url 'edit_booking' booking.id %}" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="{% url 'cancel_booking' booking.id %}" class="btn btn-sm btn-danger">Cancel</a>
+                            {% else %}
+                            <!-- This shows if the status is 'Cancelled' -->
+                            <span class="text-muted small">No actions available</span>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
         {% else %}
-            <div class="text-center py-5 border rounded bg-light shadow-sm">
-        <h4 class="text-muted mb-3">You haven't booked any flights yet.</h4>
-        <p class="mb-4">Ready to start your journey with CloudHop?</p>
-        <!-- The "Back to Home" Button -->
-        <a href="{% url 'home' %}" class="btn btn-primary btn-lg px-5">Browse All Flights</a>
-    </div>
+        <div class="text-center py-5 border rounded bg-light shadow-sm">
+            <h4 class="text-muted mb-3">You haven't booked any flights yet.</h4>
+            <p class="mb-4">Ready to start your journey with CloudHop?</p>
+            <!-- The "Back to Home" Button -->
+            <a href="{% url 'home' %}" class="btn btn-primary btn-lg px-5">Browse All Flights</a>
+        </div>
         {% endif %}
     </div>
 </div>
