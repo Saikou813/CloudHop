@@ -17,13 +17,13 @@
                 <div class="row g-3">
                     <div class="col-md-5">
                         <label class="form-label fw-bold">From</label>
-                        <input type="text" name="origin" class="form-control" 
-                               placeholder="Departure City or Code" value="{{ request.GET.origin }}">
+                        <input type="text" name="origin" class="form-control" placeholder="Departure City or Code"
+                            value="{{ request.GET.origin }}">
                     </div>
                     <div class="col-md-5">
                         <label class="form-label fw-bold">To</label>
-                        <input type="text" name="destination" class="form-control" 
-                               placeholder="Arrival City or Code" value="{{ request.GET.destination }}">
+                        <input type="text" name="destination" class="form-control" placeholder="Arrival City or Code"
+                            value="{{ request.GET.destination }}">
                     </div>
                     <div class="col-md-2 d-flex align-items-end">
                         <button class="btn btn-primary w-100 py-2 rounded-pill" type="submit">Search</button>
@@ -42,9 +42,19 @@
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for flight in flights %}
         <div class="col">
-            <div class="card h-100 shadow border-0 rounded-4">
+            <div class="card h-100 shadow border-0 rounded-4 overflow-hidden">
+
+                <!-- 1. THE IMAGE SECTION -->
+                {% if "placeholder" in flight.flight_image.url %}
+                <!-- A working travel placeholder image -->
+                <img src="https://images.unsplash.com" 
+                     class="card-img-top" style="height: 200px; object-fit: cover;" alt="Flight Destination">
+                {% else %}
+                <img src="{{ flight.flight_image.url }}" class="card-img-top" style="height: 200px; object-fit: cover;"
+                    alt="{{ flight.destination.city }}">
+                {% endif %}
+
                 <div class="card-body p-4 text-center">
-                    <!-- Showing both Origin and Destination now -->
                     <h3 class="fw-bold">{{ flight.origin.city }} ✈️ {{ flight.destination.city }}</h3>
                     <p class="text-muted mb-4">Flight: {{ flight.flight_number }}</p>
                     <div class="bg-light p-3 rounded-3 mb-4">
@@ -57,8 +67,9 @@
             </div>
         </div>
         {% empty %}
+        <!-- This shows if NO flights are found -->
         <div class="col-12 text-center py-5">
-            <h4 class="text-muted">No flights found for this route.</h4>
+            <h4 class="text-muted">No flights found for this route. Try a different search!</h4>
         </div>
         {% endfor %}
     </div>

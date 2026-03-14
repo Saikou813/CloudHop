@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 # This is the "Model" part of the MVC (Model-View-Controller) pattern.
@@ -19,7 +20,8 @@ class Flight(models.Model):
     destination = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name="arrivals")
     departure_time = models.DateTimeField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-
+    flight_image = CloudinaryField('image', default='placeholder')
+    
     def __str__(self):
         return f"{self.flight_number}: {self.origin} to {self.destination}"
 
