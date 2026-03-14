@@ -10,7 +10,7 @@ class Airport(models.Model):
 
     def __str__(self):
         return f"{self.city} ({self.code})"
-    
+     
 # This is the "Flight" model, which represents a flight in our system.       
 class Flight(models.Model):
     flight_number = models.CharField(max_length=10, unique=True)
