@@ -25,11 +25,23 @@ class Flight(models.Model):
 
 class Booking(models.Model):
     # This links the booking to a specific User and Flight
+    STATUS_CHOICES = [
+        ('Confirmed', 'Confirmed'),
+        ('Cancelled', 'Cancelled'),
+    ]
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="bookings")
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
     passenger_name = models.CharField(max_length=100)
     seat_preference = models.CharField(max_length=10, choices=[('Window', 'Window'), ('Aisle', 'Aisle')])
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Confirmed')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.flight.flight_number}"
+        return f"{self.user.username} - {self.flight.flight_number} ({self.status})"
+    class PassengerProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    passport_number = models.CharField(max_length=20, blank=True)
+    frequent_flyer_number = models.CharField(max_length=20, blank=True)
+
+    def __str__(self):
+        return f"Profile for {self.user.username}"
