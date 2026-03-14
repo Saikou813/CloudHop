@@ -2,6 +2,7 @@
 
 {% block content %}
 <div class="container py-5">
+    <!-- Header Section -->
     <div class="row mb-5 text-center">
         <div class="col">
             <h1 class="display-4 fw-bold text-primary">Where to next?</h1>
@@ -9,34 +10,55 @@
         </div>
     </div>
 
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        <!-- Search Form -->
-        <form action="{% url 'home' %}" method="get" class="mb-4 mt-4">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control"
-                    placeholder="Search by City or Airport Code (e.g. LHR)..." value="{{ request.GET.q }}">
-                <button class="btn btn-primary" type="submit">Search Flights</button>
-                {% if request.GET.q %}
-                <a href="{% url 'home' %}" class="btn btn-secondary">Clear</a>
+    <!-- Search Form Section -->
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-10">
+            <form action="{% url 'home' %}" method="get" class="p-4 shadow-sm rounded-4 bg-white border">
+                <div class="row g-3">
+                    <div class="col-md-5">
+                        <label class="form-label fw-bold">From</label>
+                        <input type="text" name="origin" class="form-control" 
+                               placeholder="Departure City or Code" value="{{ request.GET.origin }}">
+                    </div>
+                    <div class="col-md-5">
+                        <label class="form-label fw-bold">To</label>
+                        <input type="text" name="destination" class="form-control" 
+                               placeholder="Arrival City or Code" value="{{ request.GET.destination }}">
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button class="btn btn-primary w-100 py-2 rounded-pill" type="submit">Search</button>
+                    </div>
+                </div>
+                {% if request.GET.origin or request.GET.destination %}
+                <div class="text-center mt-3">
+                    <a href="{% url 'home' %}" class="text-decoration-none text-muted small">Clear Search Results</a>
+                </div>
                 {% endif %}
-            </div>
-        </form>
+            </form>
+        </div>
+    </div>
 
+    <!-- Flight Cards Row -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for flight in flights %}
         <div class="col">
             <div class="card h-100 shadow border-0 rounded-4">
                 <div class="card-body p-4 text-center">
-                    <h3 class="fw-bold">{{ flight.destination }}</h3>
+                    <!-- Showing both Origin and Destination now -->
+                    <h3 class="fw-bold">{{ flight.origin.city }} ✈️ {{ flight.destination.city }}</h3>
                     <p class="text-muted mb-4">Flight: {{ flight.flight_number }}</p>
                     <div class="bg-light p-3 rounded-3 mb-4">
                         <small class="text-muted d-block">Departs</small>
                         <strong>{{ flight.departure_time|date:"M d, Y H:i" }}</strong>
                     </div>
                     <h2 class="fw-bold text-primary mb-4">${{ flight.price }}</h2>
-                    <a href="{% url 'book_flight' flight.id %}" class="btn btn-primary btn-lg w-100 rounded-pill">Book
-                        Now</a>
+                    <a href="{% url 'book_flight' flight.id %}" class="btn btn-primary btn-lg w-100 rounded-pill">Book Now</a>
                 </div>
             </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <h4 class="text-muted">No flights found for this route.</h4>
         </div>
         {% endfor %}
     </div>
