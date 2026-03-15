@@ -21,7 +21,15 @@ class Flight(models.Model):
     departure_time = models.DateTimeField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     flight_image = CloudinaryField('image', default='placeholder')
+    capacity = models.PositiveIntegerField(default=150) # Total seats on the plane
     
+    # This is a "property" - it calculates seats remaining on the fly
+    @property
+    def seats_remaining(self):
+        # Count only 'Confirmed' bookings
+        confirmed_bookings = self.booking_set.filter(status='Confirmed').count()
+        return self.capacity - confirmed_bookings
+        
     def __str__(self):
         return f"{self.flight_number}: {self.origin} to {self.destination}"
 

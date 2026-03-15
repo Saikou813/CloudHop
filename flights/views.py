@@ -35,6 +35,11 @@ class FlightList(generic.ListView):
 def book_flight(request, flight_id):
     flight = get_object_or_404(Flight, id=flight_id)
     
+    # NEW: The "No Room" Check
+    if flight.seats_remaining <= 0:
+        messages.error(request, "Sorry, this flight is already fully booked!")
+        return redirect('home')
+    
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
