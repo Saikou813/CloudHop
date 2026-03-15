@@ -1,65 +1,60 @@
 {% extends 'flights/base.html' %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-10">
-        <h2 class="fw-bold text-primary mb-4">My Bookings ✈️</h2>
+<div class="container py-5">
+    <h2 class="fw-bold text-primary mb-4">My Travel Itinerary ✈️</h2>
 
-        {% if bookings %}
-        <div class="table-responsive shadow-sm rounded border bg-white">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="table-primary text-white">
-                    <tr>
-                        <th>Flight Details</th>
-                        <th>Status</th>
-                        <th>Passenger Name</th>
-                        <th>Seat</th>
-                        <th>Booked On</th>
-                        <th class="text-end">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for booking in bookings %}
-                    <tr>
-                        <td>
-                            <div class="fw-bold text-primary">{{ booking.flight.destination }}</div>
-                            <div class="small text-muted">{{ booking.flight.flight_number }}</div>
-                        </td>
-                        <td>
-                            {% if booking.status == 'Confirmed' %}
+    {% if bookings %}
+        {% for booking in bookings %}
+        <div class="card shadow-sm border-0 rounded-4 mb-4 overflow-hidden">
+            <div class="row g-0">
+                <!-- 1. Destination Image -->
+                <div class="col-md-3">
+                    <img src="{{ booking.flight.flight_image.url }}" class="img-fluid h-100" style="object-fit: cover; min-height: 150px;" alt="{{ booking.flight.destination.city }}">
+                </div>
+                
+                <!-- 2. Flight Details -->
+                <div class="col-md-6 p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h4 class="fw-bold text-primary mb-0">{{ booking.flight.origin.city }} to {{ booking.flight.destination.city }}</h4>
+                        {% if booking.status == 'Confirmed' %}
                             <span class="badge bg-success">Confirmed</span>
-                            {% else %}
+                        {% else %}
                             <span class="badge bg-secondary">Cancelled</span>
-                            {% endif %}
-                        </td>
-                        <td>{{ booking.passenger_name }}</td>
-                        <td><span class="badge bg-info text-dark">{{ booking.seat_preference }}</span></td>
-                        <td class="text-muted small">{{ booking.created_at|date:"M d, Y" }}</td>
+                        {% endif %}
+                    </div>
+                    
+                    <p class="text-muted mb-3">Flight: <strong>#{{ booking.flight.flight_number }}</strong> | Passenger: <strong>{{ booking.passenger_name }}</strong></p>
+                    
+                    <div class="row small text-muted">
+                        <div class="col-6">
+                            📅 Date: {{ booking.flight.departure_time|date:"M d, Y" }}
+                        </div>
+                        <div class="col-6 text-end">
+                            💺 Seat: <span class="badge bg-info text-dark">{{ booking.seat_preference }}</span>
+                        </div>
+                    </div>
+                </div>
 
-                        <td class="text-end">
-                            {% if booking.status == 'Confirmed' %}
-                            <!-- These only show if the booking is Confirmed -->
-                            <a href="{% url 'edit_booking' booking.id %}" class="btn btn-sm btn-warning">Edit</a>
-                            <a href="{% url 'cancel_booking' booking.id %}" class="btn btn-sm btn-danger">Cancel</a>
-                            {% else %}
-                            <!-- This shows if the status is 'Cancelled' -->
-                            <span class="text-muted small">No actions available</span>
-                            {% endif %}
-                        </td>
-
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                <!-- 3. Action Buttons -->
+                <div class="col-md-3 bg-light d-flex flex-column justify-content-center p-4 border-start">
+                    {% if booking.status == 'Confirmed' %}
+                        <a href="{% url 'edit_booking' booking.id %}" class="btn btn-warning mb-2 rounded-pill shadow-sm">Edit Details</a>
+                        <a href="{% url 'cancel_booking' booking.id %}" class="btn btn-outline-danger rounded-pill">Cancel Trip</a>
+                    {% else %}
+                        <p class="text-center text-muted small mb-0 italic">No actions available for cancelled trips.</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-        {% else %}
-        <div class="text-center py-5 border rounded bg-light shadow-sm">
-            <h4 class="text-muted mb-3">You haven't booked any flights yet.</h4>
-            <p class="mb-4">Ready to start your journey with CloudHop?</p>
-            <!-- The "Back to Home" Button -->
-            <a href="{% url 'home' %}" class="btn btn-primary btn-lg px-5">Browse All Flights</a>
+        {% endfor %}
+    {% else %}
+        <!-- Empty State -->
+        <div class="text-center py-5 bg-white rounded-4 shadow-sm">
+            <h3 class="text-muted">You haven't booked any flights yet.</h3>
+            <p>Ready to see the world with CloudHop?</p>
+            <a href="{% url 'home' %}" class="btn btn-primary btn-lg px-5 rounded-pill">Search Flights</a>
         </div>
-        {% endif %}
-    </div>
+    {% endif %}
 </div>
 {% endblock %}
