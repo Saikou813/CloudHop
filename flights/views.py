@@ -105,3 +105,17 @@ def profile_view(request):
         form = ProfileForm(instance=profile)
         
     return render(request, 'flights/profile.html', {'form': form})
+
+from .forms import ContactForm
+
+def contact_view(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your message has been sent! We'll fly back to you soon.")
+            return redirect('home')
+    else:
+        form = ContactForm()
+    return render(request, 'flights/contact.html', {'form': form})
+
