@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CloudHop | Modern Flight Booking</title>
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     {% load static %}
 </head>
+
 <body class="bg-light">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow mb-4">
         <div class="container">
             <!-- The Logo: "Back to Home" button -->
             <a class="navbar-brand fw-bold" href="{% url 'home' %}">☁️ CloudHop</a>
-            
+
             <!-- Mobile Menu Toggle -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -22,22 +25,23 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="navbar-nav ms-auto align-items-center">
-                    <a class="nav-item nav-link text-white" href="{% url 'contact' %}">Contact Us</a>
-                    
                     {% if user.is_authenticated %}
-                        <!-- Reflecting Login State -->
-                        <span class="nav-link text-white me-2">Hi, {{ user.username }}!</span>
-                        <a class="nav-item nav-link text-white" href="{% url 'profile' %}">My Profile</a>
-                        <a class="nav-item nav-link text-white" href="{% url 'my_bookings' %}">My Bookings</a>
-                        
-                        <!-- Secure POST Logout -->
-                        <form method="post" action="{% url 'account_logout' %}" class="d-inline ms-2">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
-                        </form>
+                    <!-- Reflecting Login State -->
+                    <span class="nav-link text-white me-2">Hi, {{ user.username }}!</span>
+
+                    <!-- This is the "Door" to profile page -->
+                    <a class="nav-item nav-link text-white" href="{% url 'profile' %}">My Profile</a>
+                    <a class="nav-item nav-link text-white" href="{% url 'my_bookings' %}">My Bookings</a>
+
+                    <!-- Secure POST Logout -->
+                    <form method="post" action="{% url 'account_logout' %}" class="d-inline ms-2">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
+                    </form>
                     {% else %}
-                        <a class="nav-item nav-link text-white" href="{% url 'account_login' %}">Login</a>
-                        <a class="nav-item nav-link text-white border btn btn-sm btn-primary ms-lg-2" href="{% url 'account_signup' %}">Register</a>
+                    <a class="nav-item nav-link text-white" href="{% url 'account_login' %}">Login</a>
+                    <a class="nav-item nav-link text-white border btn btn-sm btn-primary ms-lg-2"
+                        href="{% url 'account_signup' %}">Register</a>
                     {% endif %}
                 </div>
             </div>
@@ -47,12 +51,12 @@
     <!-- Message Alerts, User Notification -->
     <div class="container mt-3">
         {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
         {% endif %}
     </div>
 
@@ -63,13 +67,24 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white text-center py-4 border-top mt-5">
+    <footer class="bg-white text-center py-5 border-top mt-5">
         <div class="container">
-            <p class="text-muted mb-0">&copy; 2026 CloudHop Startup. All rights reserved.</p>
+            <div class="mb-3">
+                <a href="{% url 'home' %}" class="text-decoration-none text-primary fw-bold me-3">Home</a>
+                <a href="{% url 'contact' %}" class="text-decoration-none text-primary fw-bold me-3">Contact Us</a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="text-decoration-none text-primary fw-bold">My Profile</a>
+                {% endif %}
+            </div>
+            <p class="text-muted mb-0">&copy; 2026 CloudHop. All rights reserved.</p>
         </div>
     </footer>
 
+
     <!-- Bootstrap JS (Required for Toggles and Alerts) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
