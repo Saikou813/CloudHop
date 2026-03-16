@@ -10,28 +10,32 @@
                 <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
                     {% csrf_token %}
                     
-                    <!-- This "allauth-form" div forces labels above inputs -->
-                    <div class="allauth-form-container">
-                        {% for field in form %}
-                            <div class="mb-3">
-                                <label class="form-label fw-bold small text-muted">{{ field.label }}</label>
-                                <!-- We "slap" the Bootstrap class onto the field widget -->
-                                {{ field }}
-                                {% if field.errors %}
-                                    <div class="text-danger small">{{ field.errors }}</div>
-                                {% endif %}
-                                {% if field.help_text %}
-                                    <div class="form-text small">{{ field.help_text|safe }}</div>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
-                    </div>
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label">{{ field.label }}</label>
+                            <!-- Our new CSS file will handle the alignment of this field -->
+                            {{ field }}
+                            
+                            {% if field.errors %}
+                                <div class="text-danger small">{{ field.errors }}</div>
+                            {% endif %}
+                            
+                            {% if field.help_text %}
+                                <div class="form-text small text-muted">{{ field.help_text|safe }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
 
-                    <div class="d-grid gap-2 mt-4">
+                    <div class="d-grid mt-4">
                         <button class="btn btn-primary btn-lg rounded-pill" type="submit">Create Account</button>
                     </div>
                 </form>
+
+                <div class="text-center mt-4">
+                    <p class="text-muted small">Already have an account? <a href="{% url 'account_login' %}" class="text-primary text-decoration-none fw-bold">Sign In</a></p>
+                </div>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
