@@ -1,8 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // logic for the search feature onto your origin and destination fields
-    // We use the IDs Django automatically generates: id_origin and id_destination
-    
-    document.addEventListener("DOMContentLoaded", function () {
+    // 1. Create the settings for the search boxes
     const settings = {
         create: false,
         sortField: { field: "text", order: "asc" },
@@ -12,10 +9,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
+    // 2. Apply those settings to the 'From' box if it exists
     if (document.getElementById("id_origin")) {
         new TomSelect("#id_origin", settings);
     }
 
+    // 3. Apply those settings to the 'To' box if it exists
     if (document.getElementById("id_destination")) {
         new TomSelect("#id_destination", settings);
     }
