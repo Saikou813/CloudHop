@@ -1,11 +1,12 @@
 {% extends 'flights/base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="container py-5">
     <!-- Header Section -->
     <div class="row mb-5 text-center">
         <div class="col">
-            <h1 class="display-4 fw-bold text-primary">Where to next?</h1>
+            <h1 class="display-4 fw-bold text-primary">Let's fly?</h1>
             <p class="lead">Explore destinations with CloudHop's premium fleet.</p>
         </div>
     </div>
@@ -16,17 +17,16 @@
             <form action="{% url 'home' %}" method="get" class="p-4 shadow-sm rounded-4 bg-white border">
                 <div class="row g-3">
                     <div class="col-md-5">
-                        <label class="form-label fw-bold">From</label>
-                        <input type="text" name="origin" class="form-control" placeholder="Departure City or Code"
-                            value="{{ request.GET.origin }}">
+                        <label class="form-label fw-bold text-primary">From</label>
+                        <!-- This "slaps" the Django Dropdown in -->
+                        {{ form.origin }}
                     </div>
                     <div class="col-md-5">
-                        <label class="form-label fw-bold">To</label>
-                        <input type="text" name="destination" class="form-control" placeholder="Arrival City or Code"
-                            value="{{ request.GET.destination }}">
+                        <label class="form-label fw-bold text-primary">To</label>
+                        {{ form.destination }}
                     </div>
                     <div class="col-md-2 d-flex align-items-end">
-                        <button class="btn btn-primary w-100 py-2 rounded-pill" type="submit">Search</button>
+                        <button class="btn btn-primary w-100 py-2 rounded-pill fw-bold" type="submit">Search</button>
                     </div>
                 </div>
                 {% if request.GET.origin or request.GET.destination %}
@@ -37,6 +37,7 @@
             </form>
         </div>
     </div>
+
 
     <!-- Flight Cards Row -->
     <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -73,12 +74,13 @@
                         <span class="badge bg-secondary p-2">Sold Out</span>
                         {% endif %}
                     </div>
-                     <!-- Only show Book Now if there are seats -->
+                    <!-- Only show Book Now if there are seats -->
                     <div class="mt-3">
                         {% if flight.seats_remaining > 0 %}
-                            <a href="{% url 'book_flight' flight.id %}" class="btn btn-primary btn-lg w-100 rounded-pill">Book Now</a>
+                        <a href="{% url 'book_flight' flight.id %}"
+                            class="btn btn-primary btn-lg w-100 rounded-pill">Book Now</a>
                         {% else %}
-                            <button class="btn btn-secondary btn-lg w-100 rounded-pill" disabled>Sold Out</button>
+                        <button class="btn btn-secondary btn-lg w-100 rounded-pill" disabled>Sold Out</button>
                         {% endif %}
                     </div>
 
@@ -93,4 +95,8 @@
         {% endfor %}
     </div>
 </div>
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+    <script src="{% static 'js/search.js' %}"></script>
+
 {% endblock %}

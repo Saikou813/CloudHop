@@ -5,6 +5,7 @@ from django.views import generic
 from django.contrib import messages
 from .models import Flight, Booking
 from .forms import BookingForm, ProfileForm  # Added ProfileForm here
+from .forms import FlightSearchForm
 
 class FlightList(generic.ListView):
     model = Flight
@@ -12,23 +13,26 @@ class FlightList(generic.ListView):
     context_object_name = 'flights'
 
     def get_queryset(self):
-        origin_query = self.request.GET.get('origin')
-        dest_query = self.request.GET.get('destination')
+        # We now get the IDs from the dropdown selections
+        origin_id = self.request.GET.get('origin')
+        dest_id = self.request.GET.get('destination')
         queryset = Flight.objects.all()
 
-        if origin_query:
-            queryset = queryset.filter(
-                Q(origin__code__icontains=origin_query) | 
-                Q(origin__city__icontains=origin_query)
-            )
+        # Filter by ID because dropdowns send the ID, not the city name
+        if origin_id:
+            queryset = queryset.filter(origin_id=origin_id)
         
-        if dest_query:
-            queryset = queryset.filter(
-                Q(destination__code__icontains=dest_query) | 
-                Q(destination__city__icontains=dest_query)
-            )
+        if dest_id:
+            queryset = queryset.filter(destination_id=dest_id)
             
         return queryset
+
+    # This "slaps" the search form into your page context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # We pass the user's GET data so the dropdown stays on the city they picked
+        context['form'] = FlightSearchForm(self.request.GET or None)
+        return context
 
 # This handles the "Create" part of the Custom Model
 @login_required(login_url='/accounts/login/')

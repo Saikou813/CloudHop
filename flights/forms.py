@@ -1,5 +1,5 @@
 from django import forms
-from .models import Booking, PassengerProfile
+from .models import Booking, PassengerProfile, Airport
 
 class BookingForm(forms.ModelForm):
     class Meta:
@@ -31,3 +31,26 @@ class ContactForm(forms.ModelForm):
             'subject': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Subject'}),
             'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'How can we help?', 'rows': 4}),
         }
+        
+class FlightSearchForm(forms.Form):
+    # 1. Define the "Look" of the fields
+    origin = forms.ChoiceField(
+        choices=[], 
+        required=False, 
+        widget=forms.Select(attrs={'class': 'form-select rounded-pill'})
+    )
+    destination = forms.ChoiceField(
+        choices=[], 
+        required=False, 
+        widget=forms.Select(attrs={'class': 'form-select rounded-pill'})
+    )
+
+    # 2. Fill them with the "Data" (Airports) when the page loads
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Fetch all airports and format them for the dropdown
+        airports = [(a.id, f"{a.city} ({a.code})") for a in Airport.objects.all()]
+        
+        # Add a blank "Select" option at the top of both
+        self.fields['origin'].choices = [('', 'Select Departure')] + airports
+        self.fields['destination'].choices = [('', 'Select Arrival')] + airports

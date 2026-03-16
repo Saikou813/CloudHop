@@ -8,5 +8,25 @@
     "model": "flights.airport",
     "pk": 2,
     "fields": { "code": "JFK", "name": "John F. Kennedy", "city": "New York" }
+  },
+  {
+    "model": "flights.airport",
+    "pk": 3,
+    "fields": { "code": "HND", "name": "Haneda", "city": "Tokyo" }
+  },
+  {
+    "model": "flights.airport",
+    "pk": 4,
+    "fields": { "code": "CDG", "name": "Charles de Gaulle", "city": "Paris" }
+  },
+  {
+    "model": "flights.airport",
+    "pk": 5,
+    "fields": { "code": "DXB", "name": "Dubai International", "city": "Dubai" }
+  },
+  {
+    "model": "flights.airport",
+    "pk": 6,
+    "fields": { "code": "SYD", "name": "Kingsford Smith", "city": "Sydney" }
   }
 ]
