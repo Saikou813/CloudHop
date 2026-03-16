@@ -28,6 +28,9 @@
                     {% if user.is_authenticated %}
                     <!-- Reflecting Login State -->
                     <span class="nav-link text-white me-2">Hi, {{ user.username }}!</span>
+
+                    <!-- This is the "Door" to profile page -->
+                    <a class="nav-item nav-link text-white" href="{% url 'profile' %}">My Profile</a>
                     <a class="nav-item nav-link text-white" href="{% url 'my_bookings' %}">My Bookings</a>
 
                     <!-- Secure POST Logout -->
