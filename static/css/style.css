@@ -42,3 +42,15 @@ label {
     font-weight: 600;
     color: #495057;
 }
+
+/* Make the searchable boxes match our premium design height */
+.ts-control {
+    padding: 10px 15px !important;
+    border-radius: 50px !important; /* Matches your rounded-pill buttons */
+}
+
+/* Make the focus ring more subtle */
+.ts-wrapper.focus .ts-control {
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15) !important;
+    border-color: #86b7fe !important;
+}
