@@ -1,0 +1,31 @@
+{% extends 'flights/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center py-5">
+    <div class="col-md-6 text-center">
+        <div class="card shadow-lg border-0 rounded-4 p-5">
+            <div class="mb-4">
+                <span class="display-1 text-danger">⚠️</span>
+            </div>
+            <h2 class="fw-bold text-dark">Are you absolutely sure?</h2>
+            <p class="text-muted mb-4">
+                You are about to permanently delete your booking for 
+                <strong class="text-primary">{{ booking.flight.origin.city }} to {{ booking.flight.destination.city }}</strong>. 
+                <br>This action cannot be undone.
+            </p>
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-danger btn-lg rounded-pill fw-bold shadow-sm">
+                        Yes, Delete Forever
+                    </button>
+                    <a href="{% url 'my_bookings' %}" class="btn btn-outline-secondary btn-lg rounded-pill">
+                        No, Keep My Record
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

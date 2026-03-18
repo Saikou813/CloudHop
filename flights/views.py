@@ -123,3 +123,27 @@ def contact_view(request):
         form = ContactForm()
     return render(request, 'flights/contact.html', {'form': form})
 
+# 1. DELETE: Completely removes the booking from the database
+@login_required
+def delete_booking(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+    if request.method == 'POST':
+        booking.delete()
+        messages.success(request, 'Booking has been permanently deleted.')
+        return redirect('my_bookings')
+    return render(request, 'flights/delete_confirm.html', {'booking': booking})
+
+# 2. REBOOK: Changes a 'Cancelled' status back to 'Confirmed'
+@login_required
+def rebook_flight(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+    
+    # Safety Check: Make sure there are still seats!
+    if booking.flight.seats_remaining > 0:
+        booking.status = 'Confirmed'
+        booking.save()
+        messages.success(request, f'Flight to {booking.flight.destination.city} is rebooked!')
+    else:
+        messages.error(request, 'Sorry, this flight is now sold out. Please pick a new one.')
+        
+    return redirect('my_bookings')

@@ -9,4 +9,6 @@ urlpatterns = [
     path('edit-booking/<int:booking_id>/', views.edit_booking, name='edit_booking'),    path('profile/', views.profile_view, name='profile'),
     path('profile/', views.profile_view, name='profile'),
     path('contact/', views.contact_view, name='contact'),
+    path('booking/<int:booking_id>/delete/', views.delete_booking, name='delete_booking'),
+    path('booking/<int:booking_id>/rebook/', views.rebook_flight, name='rebook_flight'),
 ]
