@@ -17,8 +17,9 @@
             <!-- 2. Flight Details -->
             <div class="col-md-6 p-4">
                 <div class="d-flex justify-content-between align-items-start mb-2">
-                    <h4 class="fw-bold text-primary mb-0">{{ booking.flight.origin.city }} to {{
-                        booking.flight.destination.city }}</h4>
+                    <!-- FIX: Putting this all on one line prevents the curly bracket glitch -->
+                    <h4 class="fw-bold text-primary mb-0">{{ booking.flight.origin.city }} to {{ booking.flight.destination.city }}</h4>
+
                     {% if booking.status == 'Confirmed' %}
                     <span class="badge bg-success">Confirmed</span>
                     {% else %}
@@ -27,7 +28,8 @@
                 </div>
 
                 <p class="text-muted mb-3">Flight: <strong>#{{ booking.flight.flight_number }}</strong> | Passenger:
-                    <strong>{{ booking.passenger_name }}</strong></p>
+                    <strong>{{ booking.passenger_name }}</strong>
+                </p>
 
                 <div class="row small text-muted">
                     <div class="col-6">
@@ -39,7 +41,6 @@
                 </div>
             </div>
 
-            <!-- 3. Action Buttons -->
             <!-- 3. Action Buttons -->
             <div class="col-md-3 bg-light d-flex flex-column justify-content-center p-4 border-start">
                 {% if booking.status == 'Confirmed' %}
@@ -63,6 +64,7 @@
     </div>
     {% endfor %}
     {% else %}
+
     <!-- Empty State -->
     <div class="text-center py-5 bg-white rounded-4 shadow-sm">
         <h3 class="text-muted">You haven't booked any flights yet.</h3>
