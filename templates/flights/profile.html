@@ -1,42 +1,47 @@
-<form method="POST">
-    {% csrf_token %}
-    
-    <!-- 1. Username (Read Only) -->
-    <div class="mb-3">
-        <label class="form-label fw-bold text-muted small">Username</label>
-        <input type="text" class="form-control bg-light border-0" value="{{ user.username }}" readonly>
-    </div>
+{% extends 'flights/base.html' %}
 
-    <!-- 2. Passport Number -->
-    <div class="mb-3">
-        <label class="form-label fw-bold text-dark">Passport Number</label>
-        <div class="input-group">
-            <span class="input-group-text bg-white border-end-0">🛂</span>
-            <input type="text" name="passport_number" class="form-control border-start-0" 
-                   value="{{ form.passport_number.value|default:'' }}" placeholder="Enter Passport Number">
+{% block content %}
+<div class="container py-5"> <!-- This centering container is key! -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-5">
+                    <h2 class="fw-bold text-primary mb-4">My Travel Profile 👤</h2>
+                    
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-muted small">Username</label>
+                            <input type="text" class="form-control bg-light border-0" value="{{ user.username }}" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark">Passport Number</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0">🛂</span>
+                                <input type="text" name="passport_number" class="form-control border-start-0" 
+                                       value="{{ form.passport_number.value|default:'' }}" placeholder="Enter Passport Number">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark">Frequent Flyer Number</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0">✈️</span>
+                                <input type="text" name="frequent_flyer_number" class="form-control border-start-0" 
+                                       value="{{ form.frequent_flyer_number.value|default:'' }}" placeholder="Enter FF Number">
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button class="btn btn-primary btn-lg rounded-pill shadow-sm" type="submit">Save Changes</button>
+                            <a href="{% url 'my_bookings' %}" class="btn btn-outline-secondary rounded-pill">Cancel and Go Back</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        {% if form.passport_number.errors %}
-            <small class="text-danger">{{ form.passport_number.errors }}</small>
-        {% endif %}
     </div>
-
-    <!-- 3. Frequent Flyer Number -->
-    <div class="mb-3">
-        <label class="form-label fw-bold text-dark">Frequent Flyer Number</label>
-        <div class="input-group">
-            <span class="input-group-text bg-white border-end-0">✈️</span>
-            <input type="text" name="frequent_flyer_number" class="form-control border-start-0" 
-                   value="{{ form.frequent_flyer_number.value|default:'' }}" placeholder="Enter FF Number">
-        </div>
-        {% if form.frequent_flyer_number.errors %}
-            <small class="text-danger">{{ form.frequent_flyer_number.errors }}</small>
-        {% endif %}
-    </div>
-
-    <div class="d-grid gap-2 mt-4">
-        <button class="btn btn-primary btn-lg rounded-pill shadow-sm" type="submit">
-            Save Changes & Update Profile
-        </button>
-        <a href="{% url 'my_bookings' %}" class="btn btn-link text-muted btn-sm">Cancel and Go Back</a>
-    </div>
-</form>
+</div>
+{% endblock %}
