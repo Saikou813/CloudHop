@@ -104,7 +104,7 @@ def profile_view(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Your travel profile has been updated!')
-            return redirect('profile')
+            return redirect('my_bookings')
     else:
         form = ProfileForm(instance=profile)
         
