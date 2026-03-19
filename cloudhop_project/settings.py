@@ -178,5 +178,6 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
-# Allows your site to be displayed in iframes (needed for Am I Responsive)
-X_FRAME_OPTIONS = 'SAMEORIGIN'
+# Temporary fix for Am I Responsive screenshots
+X_FRAME_OPTIONS = 'ALLOWALL'
+SECURE_FRAME_DENY = False
