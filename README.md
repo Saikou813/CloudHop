@@ -173,6 +173,45 @@ graph TD
     N --> J
 ```
 
+### **Entity Relationship Diagram**
+
+The following diagram illustrates the relationships between the core models in the CloudHop system, highlighting the One-to-Many links between Airports, Flights, and Bookings, as well as the One-to-One Signal-based link for User Profiles.
+
+```mermaid
+erDiagram
+    USER ||--o{ BOOKING : "places"
+    USER ||--|| PASSENGERPROFILE : "has"
+    AIRPORT ||--o{ FLIGHT : "departs"
+    AIRPORT ||--o{ FLIGHT : "arrives"
+    FLIGHT ||--o{ BOOKING : "contains"
+
+    AIRPORT {
+        string code PK
+        string name
+        string city
+    }
+    FLIGHT {
+        string flight_number PK
+        fk origin_id
+        fk destination_id
+        datetime departure_time
+        decimal price
+        int capacity
+    }
+    BOOKING {
+        int id PK
+        fk user_id
+        fk flight_id
+        string passenger_name
+        string seat_preference
+        string status
+    }
+    PASSENGERPROFILE {
+        fk user_id PK
+        string passport_number
+        string frequent_flyer_number
+    }
+
 ## 🧪 Manual Testing Write-up
 
 To ensure a bug-free experience, the following manual tests were performed:
