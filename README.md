@@ -212,6 +212,8 @@ erDiagram
         string frequent_flyer_number
     }
 
+```
+
 ## 🧪 Manual Testing Write-up
 
 To ensure a bug-free experience, the following manual tests were performed:
