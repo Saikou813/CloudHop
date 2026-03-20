@@ -87,6 +87,58 @@ The development was managed using an Agile Kanban board to track features to com
     sqlparse==0.4.4
     whitenoise==5.3.0
 
+---
+
+## 🗄️ Database Schema
+
+### **Airport Model**
+
+| Name | Type | Purpose | Validation |
+| :--- | :--- | :--- | :--- |
+| `code` | CharField | 3-letter IATA code for the airport | Max_length=3, Unique=True |
+| `name` | CharField | Full name of the airport | Max_length=100 |
+| `city` | CharField | The city where the airport is located | Max_length=100 |
+
+### **Flight Model**
+
+| Name | Type | Purpose | Validation |
+| :--- | :--- | :--- | :--- |
+| `flight_number` | CharField | Unique identifier for the flight | Unique=True |
+| `origin` | ForeignKey | Starting airport (links to Airport model) | Related_name="departures" |
+| `destination` | ForeignKey | Arrival airport (links to Airport model) | Related_name="arrivals" |
+| `departure_time` | DateTimeField | Date and time of departure | Required |
+| `price` | DecimalField | Cost of the flight ticket | Max_digits=10, 2 dec places |
+| `flight_image` | CloudinaryField | Destination photo for the search cards | Default='placeholder' |
+| `capacity` | PositiveIntegerField | Total seats available on the aircraft | Default=150 |
+
+### **Booking Model**
+
+| Name | Type | Purpose | Validation |
+| :--- | :--- | :--- | :--- |
+| `user` | ForeignKey | The user who made the booking | Required |
+| `flight` | ForeignKey | The specific flight being booked | Required |
+| `passenger_name` | CharField | Name of the person traveling | Max_length=100 |
+| `seat_preference` | CharField | Passenger's choice of Window or Aisle | Window / Aisle choices |
+| `status` | CharField | Tracks if the trip is Confirmed or Cancelled | Confirmed / Cancelled |
+| `created_at` | DateTimeField | Timestamp of when the booking was made | Auto_now_add=True |
+
+### **PassengerProfile Model**
+
+| Name | Type | Purpose | Validation |
+| :--- | :--- | :--- | :--- |
+| `user` | OneToOneField | Link to the User account (via Signals) | Related_name="profile" |
+| `passport_number` | CharField | Stores passenger travel document info | Max_length=20, Blank=True |
+| `frequent_flyer_number` | CharField | Stores loyalty program identifier | Max_length=20, Blank=True |
+
+### **ContactMessage Model**
+
+| Name | Type | Purpose | Validation |
+| :--- | :--- | :--- | :--- |
+| `name` | CharField | Name of the person sending the inquiry | Max_length=100 |
+| `email` | EmailField | Contact email for the support response | Required |
+| `subject` | CharField | Brief topic of the message | Max_length=200 |
+| `message` | TextField | Full details of the user's inquiry | Required |
+
 ## 🧪 Manual Testing Write-up
 
 To ensure a bug-free experience, the following manual tests were performed:
