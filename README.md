@@ -43,14 +43,10 @@ The development was managed using an Agile Kanban board to track features to com
 - **Smart Flight Search:** Filter by origin and destination using dynamic dropdowns and Django Q objects.
 
 - **Full CRUD Itinerary:**
-
-      - **Create:** Book flights with real-time seat tracking.
-
-      - **Read:** View personalized trip cards with destination imagery.
-
-      - **Update:** Edit passenger names and seat preferences.
-
-      - **Delete/Rebook:** "Soft-delete" (cancel) or "Hard-delete" (wipe) bookings.
+  - **Create:** Book flights with real-time seat tracking.
+  - **Read:** View personalized trip cards with destination imagery.
+  - **Update:** Edit passenger names and seat preferences.
+  - **Delete/Rebook:** "Soft-delete" (cancel) or "Hard-delete" (wipe) bookings.
 
 - **User Profiles:** Automatic profile creation via **Django Signals**.
 
@@ -74,18 +70,20 @@ The development was managed using an Agile Kanban board to track features to com
 
 ### **Full Dependency List**
 
-    asgiref==3.7.2
-    cloudinary==1.36.0
-    crispy-bootstrap5==0.7
-    dj-database-url==0.5.0
-    dj3-cloudinary-storage==0.0.6
-    Django==4.2.11
-    django-allauth==0.57.2
-    django-crispy-forms==2.1
-    gunicorn==20.1.0
-    psycopg2==2.9.9
-    sqlparse==0.4.4
-    whitenoise==5.3.0
+```text
+asgiref==3.7.2
+cloudinary==1.36.0
+crispy-bootstrap5==0.7
+dj-database-url==0.5.0
+dj3-cloudinary-storage==0.0.6
+Django==4.2.11
+django-allauth==0.57.2
+django-crispy-forms==2.1
+gunicorn==20.1.0
+psycopg2==2.9.9
+sqlparse==0.4.4
+whitenoise==5.3.0
+```
 
 ---
 
@@ -153,6 +151,8 @@ To ensure every traveller has a profile ready for their passport details, I impl
 
 The following diagram outlines the primary "Happy Path" for a CloudHop traveller, from initial search to managing their confirmed itinerary. It also highlights the "Defensive Design" logic that prevents overbooking.
 
+```mermaid
+
 graph TD
     A[Landing Page: Ready for Takeoff?] --> B{Logged In?}
     B -- No --> C[Sign Up / Register]
@@ -171,6 +171,7 @@ graph TD
     L --> J
     M --> J
     N --> J
+```
 
 ## 🧪 Manual Testing Write-up
 
