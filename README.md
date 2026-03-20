@@ -149,6 +149,29 @@ To ensure every traveller has a profile ready for their passport details, I impl
 | `subject` | CharField | Brief topic of the message | Max_length=200 |
 | `message` | TextField | Full details of the user's inquiry | Required |
 
+### **User Flow Diagram**
+
+The following diagram outlines the primary "Happy Path" for a CloudHop traveller, from initial search to managing their confirmed itinerary. It also highlights the "Defensive Design" logic that prevents overbooking.
+
+graph TD
+    A[Landing Page: Ready for Takeoff?] --> B{Logged In?}
+    B -- No --> C[Sign Up / Register]
+    C --> D[Search Flights]
+    B -- Yes --> D
+    D --> E[Select Available Flight]
+    E --> F{Seats Remaining?}
+    F -- No --> G[Show 'Fully Booked' Alert]
+    F -- Yes --> H[Fill Booking Form]
+    H --> I[Confirm Booking]
+    I --> J[View My Travel Itinerary]
+    J --> K{Manage Trip?}
+    K -- Edit --> L[Update Passenger Details]
+    K -- Cancel --> M[Soft Delete: Status Cancelled]
+    K -- Delete --> N[Hard Delete: Remove from DB]
+    L --> J
+    M --> J
+    N --> J
+
 ## 🧪 Manual Testing Write-up
 
 To ensure a bug-free experience, the following manual tests were performed:
