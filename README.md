@@ -1,6 +1,6 @@
 # ☁️ CloudHop | Full-Stack Flight Booking System
 
-### Ready for Takeoff? 🛫
+## Ready for Takeoff? 🛫
 
 ![CloudHop Responsive Mockup](docs/images/screenshots/am_i_responsive.png)
 
