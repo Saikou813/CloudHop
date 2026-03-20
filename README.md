@@ -314,7 +314,7 @@ erDiagram
 
 ```
 
-## Testing Documentation (Criterion 6.2)
+## Testing Documentation
 
 ### **Testing Approach**
 
@@ -467,13 +467,13 @@ heroku open -a <your-app-name>
 
 ---
 
-## AI Reflection (Learning Objective 8)
+## AI Reflection
 
 ### **AI Tools Used**
 
 - GitHub Copilot
 
-- ChatGPT
+- Google
 
 ### **How AI Supported the Project**
 
@@ -537,4 +537,4 @@ heroku open -a <your-app-name>
 
 - **Images and Visual Assets:** Unsplash and project-owned screenshots in `docs/images/screenshots/`
 
-- **Learning Support:** Code Institute curriculum, W3Schools, and Stack Overflow.
+- **Learning Support:** Code Institute curriculum, Google, W3Schools, and Stack Overflow.
