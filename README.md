@@ -130,6 +130,16 @@ The development was managed using an Agile Kanban board to track features to com
 | `passport_number` | CharField | Stores passenger travel document info | Max_length=20, Blank=True |
 | `frequent_flyer_number` | CharField | Stores loyalty program identifier | Max_length=20, Blank=True |
 
+#### **Automated Profile Creation (Django Signals)**
+
+To ensure every traveller has a profile ready for their passport details, I implemented **Django Signals**.
+
+- **Automated Workflow:** Whenever a new `User` is created, a `post_save` signal triggers the creation of a corresponding `PassengerProfile`.
+
+- **Data Integrity:** This ensures the 1-to-1 relationship is always maintained without manual intervention.
+
+- **[View the Signals Logic](flights/signals.py)**
+
 ### **ContactMessage Model**
 
 | Name | Type | Purpose | Validation |
