@@ -14,9 +14,9 @@ CloudHop is a premium flight booking platform built with **Django** and **Postgr
 1. [Key Features](#key-features)
 1. [Technologies](#technologies)
 1. [Database Schema](#database-schema)
-1. [Testing Documentation (Criterion 6.2)](#testing-documentation-criterion-62)
+1. [Testing Documentation (Criterion 6.2)](#testing-documentation)
 1. [Deployment Process](#deployment-process)
-1. [AI Reflection (Learning Objective 8)](#ai-reflection-learning-objective-8)
+1. [AI Reflection (Learning Objective 8)](#ai-reflection)
 1. [References](#references)
 
 ## Marking Checklist
@@ -24,9 +24,9 @@ CloudHop is a premium flight booking platform built with **Django** and **Postgr
 | Criterion | Requirement Summary | Status | Evidence |
 | :--- | :--- | :--- | :--- |
 | 4.3 | UX process with wireframes, mockups, diagrams, and implementation rationale | Complete | [UX Design Process (Criterion 4.3)](#ux-design-process-criterion-43) |
-| 6.2 | Testing procedures, expected vs actual outcomes, and organized results | Complete | [Testing Documentation (Criterion 6.2)](#testing-documentation-criterion-62) |
+| 6.2 | Testing procedures, expected vs actual outcomes, and organized results | Complete | [Testing Documentation (Criterion 6.2)](#testing-documentation) |
 | Deployment | Clear setup and deployment instructions | Complete | [Deployment Process](#deployment-process) |
-| LO8 | AI reflection with validation and learning evidence | Complete | [AI Reflection (Learning Objective 8)](#ai-reflection-learning-objective-8) |
+| LO8 | AI reflection with validation and learning evidence | Complete | [AI Reflection (Learning Objective 8)](#ai-reflection) |
 
 ## Assessment Mapping
 
