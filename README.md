@@ -139,4 +139,4 @@ This project was developed in an **Authentic Adaptive Collaboration** with an AI
 
 - **UI:** Bootstrap 5 Framework for mobile-first responsiveness.
 
-- **Support:** W3Schools, Stack Overflow, and the Code Institute curriculum.
+- **Support:** W3Schools, Stack Overflow, and the Code Institute curriculum & mentors.
